@@ -59,7 +59,7 @@ def decodeBoundingBoxes(scores, geometry, scoreThresh):
 boxlist=[]
 net = cv2.dnn.readNet("frozen_east_text_detection.pb")   #This is the model we get after extraction
 frame = cv2.imread("ZoomedOut.png")
-inpWidth = inpHeight = 1440 # A default dimension
+inpWidth = inpHeight = 1920 # A default dimension
 # Preparing a blob to pass the image through the neural network
 # Subtracting mean values used while training the model.
 image_blob = cv2.dnn.blobFromImage(frame, 1.0, (inpWidth, inpHeight), (123.68, 116.78, 103.94), True, False)
