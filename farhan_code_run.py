@@ -59,7 +59,7 @@ def decodeBoundingBoxes(scores, geometry, scoreThresh):
 boxlist=[]
 net = cv2.dnn.readNet("frozen_east_text_detection.pb")   #This is the model we get after extraction
 frame = cv2.imread("ZoomedOut.png")
-inpWidth = inpHeight = 4000 # A default dimension
+inpWidth = inpHeight = 1440 # A default dimension
 # Preparing a blob to pass the image through the neural network
 # Subtracting mean values used while training the model.
 image_blob = cv2.dnn.blobFromImage(frame, 1.0, (inpWidth, inpHeight), (123.68, 116.78, 103.94), True, False)
@@ -87,7 +87,7 @@ rH = height_ / float(inpHeight)
 
 for i in indices:
     # get 4 corners of the rotated rect
-    vertices = cv2.boxPoints(boxes[i])#i[0]
+    vertices = cv2.boxPoints(boxes[i[0]])#i[0]
     # scale the bounding box coordinates based on the respective ratios
     for j in range(4):
         vertices[j][0] *= rW
@@ -111,8 +111,10 @@ boxlist=np.array(boxlist)
 sorted=boxlist[boxlist[:,1].argsort()]
 # print(boxlist[0,:])
 j=0
+def convert(list):
+    return (*list, )
 for i in sorted:
-    cv2.line(frame, list(map(int,i[0:2])), list(map(int,i[2:])), (0, 255, 0), 3)
+    cv2.line(frame, convert(list(map(int,i[0:2]))), convert(list(map(int,i[2:]))), (0, 255, 0), 3)
     # print(i[0:2],i[2:])
     j+=1
 cv2.imwrite("maggi_boxed.jpg", frame)
