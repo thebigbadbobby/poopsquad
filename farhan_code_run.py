@@ -113,6 +113,6 @@ sorted=boxlist[boxlist[:,1].argsort()]
 j=0
 for i in sorted:
     cv2.line(frame, list(map(int,i[0:2])), list(map(int,i[2:])), (0, 255, 0), 3)
-    print(i[0:2],i[2:])
+    # print(i[0:2],i[2:])
     j+=1
 cv2.imwrite("maggi_boxed.jpg", frame)
